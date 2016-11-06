@@ -1,0 +1,12 @@
+### Idea ###
+.idea
+
+### Generated Files ###
+dist
+coverage
+
+### 3rd Party Libraries ###
+node_modules
+
+### Log Files ###
+npm-debug.log*

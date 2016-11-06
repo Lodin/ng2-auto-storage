@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2015", "es2016", "dom"],
+    "mapRoot": "",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noImplicitAny": true,
+    "outDir": "../dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "stripInternal": true,
+    "target": "es5",
+    "inlineSources": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "types": [
+      "deep-equal",
+      "clone",
+      "jasmine"
+    ]
+  }
+}
