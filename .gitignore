@@ -10,3 +10,4 @@ node_modules
 
 ### Log Files ###
 npm-debug.log*
+yarn-error.log*

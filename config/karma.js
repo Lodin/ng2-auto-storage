@@ -9,8 +9,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
       require('karma-webpack'),
-      require('karma-sourcemap-loader'),
-      require('karma-mocha-reporter')
+      require('karma-sourcemap-loader')
     ],
     customLaunchers: {
       Chrome_travis_ci: {
@@ -31,7 +30,7 @@ module.exports = function (config) {
         html: 'coverage/html'
       }
     },
-    reporters: ['mocha', 'karma-remap-istanbul'],
+    reporters: ['progress', 'karma-remap-istanbul'],
     port: 9877,
     colors: true,
     logLevel: config.LOG_INFO,
