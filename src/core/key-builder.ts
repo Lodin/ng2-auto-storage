@@ -2,14 +2,16 @@ import {GlobalSettings} from './global-settings';
 import {PrefixRegistry} from './registries';
 
 export class KeyBuilder {
-  constructor(private _target: any,
-              private _storage: Storage) {
+  constructor(private _storage: Storage,
+              private _target?: any) {
+  }
+
+  public get isAdapted(): boolean {
+    return !!this._target && PrefixRegistry.has(this._target, this._storage);
   }
 
   public belongs(key: string): boolean {
-    const isLocalPrefixSet = PrefixRegistry.has(this._target, this._storage);
-
-    if (!isLocalPrefixSet) {
+    if (!this.isAdapted) {
       return false;
     }
 
@@ -28,7 +30,7 @@ export class KeyBuilder {
   public build(key: string): string {
     let result = key;
 
-    if (PrefixRegistry.has(this._target, this._storage)) {
+    if (this.isAdapted) {
       const prefix = PrefixRegistry.get(this._target, this._storage);
       result = `${prefix}:${result}`;
     }
@@ -44,24 +46,23 @@ export class KeyBuilder {
   public strip(key: string): string {
     const parts = key.split(':');
     const isGlobalPrefixSet = GlobalSettings.isPrefixSet;
-    const isLocalPrefixSet = PrefixRegistry.has(this._target, this._storage);
 
     switch (true) {
-      case !isGlobalPrefixSet && !isLocalPrefixSet: {
+      case !isGlobalPrefixSet && !this.isAdapted: {
         if (parts.length > 1) {
           return null;
         }
 
         return parts[0];
       }
-      case isGlobalPrefixSet && !isLocalPrefixSet: {
+      case isGlobalPrefixSet && !this.isAdapted: {
         if (parts.length !== 2 || parts[0] !== GlobalSettings.prefix) {
           return null;
         }
 
         return parts[1];
       }
-      case !isGlobalPrefixSet && isLocalPrefixSet: {
+      case !isGlobalPrefixSet && this.isAdapted: {
         if (parts.length !== 2 || parts[0] !== PrefixRegistry.get(this._target, this._storage)) {
           return null;
         }

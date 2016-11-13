@@ -24,16 +24,29 @@ describe('Class: KeyBuilder', () => {
 
   beforeEach(() => {
     spy = new Spy();
-    instance = new KeyBuilder(Mock.target, <any> Mock.storage);
   });
 
   afterEach(() => {
     GlobalSettings.setPrefix(null);
   });
 
+  it('should inform of being adapted', () => {
+    spy.prefixRegistry.has.and.returnValue(true);
+
+    instance = new KeyBuilder(<any> Mock.storage);
+    expect(instance.isAdapted).not.toBeTruthy();
+    expect(spy.prefixRegistry.has).not.toHaveBeenCalled();
+
+    instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+    expect(instance.isAdapted).toBeTruthy();
+    expect(spy.prefixRegistry.has).toHaveBeenCalled();
+  });
+
   describe('finding out key belonging', () => {
-    describe('if local prefix is not set', () => {
+    describe('if key builder is initialized without target', () => {
       beforeEach(() => {
+        instance = new KeyBuilder(<any> Mock.storage);
+
         spy.prefixRegistry.has.and.returnValue(false);
       });
 
@@ -46,8 +59,10 @@ describe('Class: KeyBuilder', () => {
       });
     });
 
-    describe('if local prefix is set', () => {
+    describe('if key builder is initialized with target', () => {
       beforeEach(() => {
+        instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+
         spy.prefixRegistry.has.and.returnValue(true);
         spy.prefixRegistry.get.and.returnValue(Mock.prefix);
       });
@@ -71,14 +86,17 @@ describe('Class: KeyBuilder', () => {
 
   describe('building a key', () => {
     describe('if there is no global prefix', () => {
-      it('should get received key if there is no local prefix', () => {
+      it('should get received key if key builder is initialized without target', () => {
+        instance = new KeyBuilder(<any> Mock.storage);
+
         spy.prefixRegistry.has.and.returnValue(false);
 
         expect(instance.build(Mock.key)).toEqual(Mock.key);
-        expect(spy.prefixRegistry.has).toHaveBeenCalledWith(Mock.target, Mock.storage);
       });
 
-      it('should get key with prefix if there is a local prefix', () => {
+      it('should get key with prefix if key builder is initialized with target', () => {
+        instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+
         spy.prefixRegistry.has.and.returnValue(true);
         spy.prefixRegistry.get.and.returnValue(Mock.prefix);
 
@@ -92,13 +110,18 @@ describe('Class: KeyBuilder', () => {
         GlobalSettings.setPrefix(Mock.globalPrefix);
       });
 
-      it('should get key with global prefix if there is no local prefix', () => {
+      it('should get key with global prefix if key builder is initialized without target', () => {
+        instance = new KeyBuilder(<any> Mock.storage);
+
         spy.prefixRegistry.has.and.returnValue(false);
 
         expect(instance.build(Mock.key)).toEqual(`${Mock.globalPrefix}:${Mock.key}`);
       });
 
-      it('should get key with global and local prefixes if there is a local prefix', () => {
+      it('should get key with global and local prefixes if key builder is initialized with ' +
+        'target', () => {
+        instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+
         spy.prefixRegistry.has.and.returnValue(true);
         spy.prefixRegistry.get.and.returnValue(Mock.prefix);
 
@@ -109,8 +132,10 @@ describe('Class: KeyBuilder', () => {
 
   describe('stripping a key', () => {
     describe('if there is no global prefix', () => {
-      describe('and if local prefix is not set', () => {
+      describe('and if key builder is initialized without target', () => {
         beforeEach(() => {
+          instance = new KeyBuilder(<any> Mock.storage);
+
           spy.prefixRegistry.has.and.returnValue(false);
         });
 
@@ -123,8 +148,10 @@ describe('Class: KeyBuilder', () => {
         });
       });
 
-      describe('and if local prefix is set', () => {
+      describe('and if key builder is initialized with target', () => {
         beforeEach(() => {
+          instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+
           spy.prefixRegistry.has.and.returnValue(true);
           spy.prefixRegistry.get.and.returnValue(Mock.prefix);
         });
@@ -148,8 +175,10 @@ describe('Class: KeyBuilder', () => {
         GlobalSettings.setPrefix(Mock.globalPrefix);
       });
 
-      describe('and if local prefix is not set', () => {
+      describe('and if key builder is initialized without target', () => {
         beforeEach(() => {
+          instance = new KeyBuilder(<any> Mock.storage);
+
           spy.prefixRegistry.has.and.returnValue(false);
         });
 
@@ -162,8 +191,10 @@ describe('Class: KeyBuilder', () => {
         });
       });
 
-      describe('and if local prefix is set', () => {
+      describe('and if key builder is initialized with target', () => {
         beforeEach(() => {
+          instance = new KeyBuilder(<any> Mock.storage, Mock.target);
+
           spy.prefixRegistry.has.and.returnValue(true);
           spy.prefixRegistry.get.and.returnValue(Mock.prefix);
         });
