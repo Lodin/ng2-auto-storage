@@ -4,14 +4,14 @@ var webpack = require('webpack');
 var projectRoot = path.resolve(__dirname, '..');
 var srcRoot = path.resolve(projectRoot, 'src');
 
-module.export = {
+module.exports = {
   devtool: 'inline-source-map',
   context: projectRoot,
   resolve: {
     extensions: ['.ts', '.js'],
   },
   entry: {
-    test: path.resolve(srcRoot, 'test.js')
+    test: path.resolve(srcRoot, 'test.ts')
   },
   output: {
     path: path.resolve(projectRoot, 'dist.test'),
