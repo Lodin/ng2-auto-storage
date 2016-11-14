@@ -1,4 +1,4 @@
-import {KeyBuilder} from './key-builder';
+import {KeyOperator} from './key-operators';
 import {StorageOperator} from './storage-operator';
 
 export class Registry<T> {
@@ -22,6 +22,5 @@ export class Registry<T> {
   }
 }
 
-export const KeyBuilderRegistry = new Registry<KeyBuilder>();
+export const KeyBuilderRegistry = new Registry<KeyOperator>();
 export const OperatorRegistry = new Registry<StorageOperator>();
-export const PrefixRegistry = new Registry<string>();
