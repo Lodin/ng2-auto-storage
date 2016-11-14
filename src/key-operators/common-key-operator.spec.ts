@@ -1,4 +1,4 @@
-import {GlobalSettings} from '../global-settings';
+import {GlobalSettings} from '../core';
 import {CommonKeyOperator} from './common-key-operator';
 
 abstract class Mock {

@@ -1,5 +1,5 @@
 import {AdaptedKeyOperator} from './adapted-key-operator';
-import {GlobalSettings} from '../global-settings';
+import {GlobalSettings} from '../core';
 
 abstract class Mock {
   public static readonly prefix = 'testPrefix';

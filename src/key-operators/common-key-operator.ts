@@ -1,5 +1,5 @@
 import {KeyOperator} from './key-operator';
-import {GlobalSettings} from '../global-settings';
+import {GlobalSettings} from '../core';
 
 export const CommonKeyOperator = new (class CommonKeyOperator implements KeyOperator {
   public belongs(key: string): boolean {

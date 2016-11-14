@@ -1,4 +1,4 @@
-import {GlobalSettings} from '../global-settings';
+import {GlobalSettings} from '../core';
 import {KeyOperator} from './key-operator';
 import {CommonKeyOperator} from './common-key-operator';
 
