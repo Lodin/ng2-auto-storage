@@ -1,30 +1,40 @@
+import {Serializer} from './serializer';
 import {SerializationRule} from './serialization-rule';
 
-export abstract class GlobalSettings {
-  private static _prefix: string;
-  private static _serializationRule: SerializationRule;
+export const GlobalSettings = new (class GlobalSettings implements Serializer {
+  private _delimiter = ':';
+  private _prefix: string;
+  private _rule: SerializationRule;
 
-  public static get isPrefixSet(): boolean {
-    return !!GlobalSettings._prefix;
+  public get delimiter(): string {
+    return this._delimiter;
   }
 
-  public static get isSerializationRuleSet(): boolean {
-    return !!GlobalSettings._serializationRule;
+  public get isPrefixSet(): boolean {
+    return !!this._prefix;
   }
 
-  public static get prefix(): string {
-    return GlobalSettings._prefix;
+  public get isSerializationRuleSet(): boolean {
+    return !!this._rule;
   }
 
-  public static get serializationRule(): SerializationRule {
-    return GlobalSettings._serializationRule;
+  public get prefix(): string {
+    return this._prefix;
   }
 
-  public static setPrefix(prefix: string): void {
-    GlobalSettings._prefix = prefix;
+  public get serializationRule(): SerializationRule {
+    return this._rule;
   }
 
-  public static setSerializationRule(rule: SerializationRule): void {
-    GlobalSettings._serializationRule = rule;
+  public useDelimiter(delimiter: string): void {
+    this._delimiter = delimiter ? delimiter : ':';
   }
-}
+
+  public useSerializationRule(rule: SerializationRule) {
+    this._rule = rule;
+  }
+
+  public usePrefix(prefix: string): void {
+    this._prefix = prefix;
+  }
+})();
