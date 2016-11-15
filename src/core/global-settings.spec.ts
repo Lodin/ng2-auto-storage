@@ -1,5 +1,5 @@
 import {GlobalSettings} from './global-settings';
-import {SerializationRule} from './serialization-rule';
+import {SerializationRule, defaultSerializationRule} from './serialization-rule';
 
 abstract class Mock {
   public static readonly delimiter = '+';
@@ -11,11 +11,14 @@ abstract class Mock {
 }
 
 describe('Class: GlobalSettings', () => {
-  beforeEach(() => {
+  const reset = () => {
     GlobalSettings.usePrefix(null);
     GlobalSettings.useDelimiter(':');
     GlobalSettings.useSerializationRule(null);
-  });
+  };
+
+  beforeEach(reset);
+  afterAll(reset);
 
   it('should get default delimiter', () => {
     expect(GlobalSettings.delimiter).toEqual(':');
@@ -29,6 +32,10 @@ describe('Class: GlobalSettings', () => {
   it('should get current prefix', () => {
     (<any> GlobalSettings)._prefix = Mock.prefix;
     expect(GlobalSettings.prefix).toEqual(Mock.prefix);
+  });
+
+  it('should get default serialization rule', () => {
+    expect(GlobalSettings.serializationRule).toEqual(defaultSerializationRule);
   });
 
   it('should get current serialization rule', () => {
@@ -56,15 +63,14 @@ describe('Class: GlobalSettings', () => {
     expect(GlobalSettings.serializationRule).toEqual(Mock.serializationRule);
   });
 
+  it('should prevent setting null or undefined as serializationRule', () => {
+    GlobalSettings.useSerializationRule(null);
+    expect(GlobalSettings.serializationRule).toEqual(defaultSerializationRule);
+  });
+
   it('should inform of prefix existence', () => {
     expect(GlobalSettings.isPrefixSet).not.toBeTruthy();
     GlobalSettings.usePrefix(Mock.prefix);
     expect(GlobalSettings.isPrefixSet).toBeTruthy();
-  });
-
-  it('should inform of serialization rule existence', () => {
-    expect(GlobalSettings.isSerializationRuleSet).not.toBeTruthy();
-    GlobalSettings.useSerializationRule(Mock.serializationRule);
-    expect(GlobalSettings.isSerializationRuleSet).toBeTruthy();
   });
 });
