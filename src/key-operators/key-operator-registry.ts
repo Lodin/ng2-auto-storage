@@ -1,7 +1,7 @@
-import {StorageOperator} from './storage-operator';
+import {KeyOperator} from './key-operator';
 
-export class StorageOperatorRegistry {
-  private _data = new Map<Storage, Map<any, StorageOperator>>();
+export class KeyOperatorRegistry {
+  private _data = new Map<Storage, Map<any, KeyOperator>>();
 
   constructor() {
     this._data.set(window.localStorage, new Map());
@@ -12,11 +12,13 @@ export class StorageOperatorRegistry {
     return this._data.get(storage).has(instance);
   }
 
-  public get(instance: any, storage: Storage): StorageOperator {
+  public get(instance: any, storage: Storage): KeyOperator {
     return this._data.get(storage).get(instance);
   }
 
-  public set(instance: any, storage: Storage, value: StorageOperator): void {
+  public set(instance: any, storage: Storage, value: KeyOperator): void {
     this._data.get(storage).set(instance, value);
   }
 }
+
+export default new KeyOperatorRegistry();
