@@ -1,5 +1,5 @@
 import {GlobalSettings} from '../core';
-import {CommonKeyOperator} from './common-key-operator';
+import CommonKeyOperator from './common-key-operator';
 
 abstract class Mock {
   public static readonly key = 'testKey';

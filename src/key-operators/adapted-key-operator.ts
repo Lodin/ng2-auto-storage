@@ -1,6 +1,6 @@
 import {GlobalSettings} from '../core';
 import {KeyOperator} from './key-operator';
-import {CommonKeyOperator} from './common-key-operator';
+import CommonKeyOperator from './common-key-operator';
 
 export class AdaptedKeyOperator implements KeyOperator {
   constructor(private _prefix: string) {

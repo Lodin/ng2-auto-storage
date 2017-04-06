@@ -1,7 +1,7 @@
 import {KeyOperator} from './key-operator';
 import {GlobalSettings} from '../core';
 
-export const CommonKeyOperator = new (class CommonKeyOperator implements KeyOperator {
+export class CommonKeyOperator implements KeyOperator {
   public belongs(key: string): boolean {
     const parts = key.split(GlobalSettings.delimiter);
 
@@ -19,4 +19,6 @@ export const CommonKeyOperator = new (class CommonKeyOperator implements KeyOper
     const parts = key.split(GlobalSettings.delimiter);
     return parts[parts.length - 1];
   }
-})();
+}
+
+export default new CommonKeyOperator();
