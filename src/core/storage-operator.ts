@@ -1,10 +1,9 @@
 import {KeyOperator} from '../key-operators';
 import {GlobalSettings} from './global-settings';
-import {NgStorage} from './ng-storage';
 import {Serializer} from './serializer';
 import {SerializationRule} from './serialization-rule';
 
-export class StorageOperator implements NgStorage, Serializer {
+export class StorageOperator implements Serializer {
   private _serializer: SerializationRule = GlobalSettings.serializationRule;
 
   constructor(private _storage: Storage,
