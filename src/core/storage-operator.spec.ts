@@ -1,4 +1,5 @@
 import {StorageOperator} from './storage-operator';
+import {GlobalSettings} from './global-settings';
 
 abstract class Mock {
   public static readonly prefix = 'testPrefix';
@@ -60,6 +61,11 @@ describe('Class: StorageOperator', () => {
 
     instance.useSerializationRule(rule);
     expect((<any> instance)._serializer).toEqual(rule);
+  });
+
+  it('should prevent setting empty serialization rule', () => {
+    instance.useSerializationRule(null);
+    expect((<any> instance)._serializer).toEqual(GlobalSettings.serializationRule);
   });
 
   describe('basically', () => {
